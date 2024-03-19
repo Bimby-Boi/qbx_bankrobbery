@@ -3,3 +3,9 @@ An edited version of qbx_bankrobbery that has thermite open doors, redcard opens
 Dependencies: Ps-ui.
 
 Dont like ps-ui? Compare with original RegisterNetEvent('thermite:UseThermite', function() in client > powerstation.lua
+
+Changes were made in client > 
+fleeca.lua
+pacific.lua
+paleto.lua
+powerstation.lua
