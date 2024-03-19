@@ -12,4 +12,4 @@ INSERT INTO `ox_doorlock` (`id`, `name`, `data`) VALUES
 (5, 'PaletoThermiteDoor', '{\"coords\":{\"x\":-106.47130584716797,\"y\":6476.15771484375,\"z\":31.95479965209961},\"autolock\":1800,\"maxDistance\":2,\"groups\":{\"police\":0},\"model\":1309269072,\"doors\":false,\"hideUi\":true,\"heading\":315,\"state\":1}'),
 (6, 'BigBankRedCardDoor', '{\"coords\":{\"x\":262.1980895996094,\"y\":222.518798828125,\"z\":106.42955780029297},\"autolock\":1800,\"maxDistance\":2,\"groups\":{\"police\":0},\"model\":746855201,\"doors\":false,\"hideUi\":true,\"heading\":250,\"state\":1}');
 
--- this is assuming youre using a fresh install of qbox recipe. if not, read the readme
+-- this is assuming youre using a fresh install of qbox recipe. if not, read the readme. Probably delete this lil section before uploading to db
