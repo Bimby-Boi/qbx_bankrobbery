@@ -48,11 +48,16 @@ RegisterNetEvent('thermite:UseThermite', function()
                     lib.requestAnimDict('weapon@w_sp_jerrycan')
                     TaskPlayAnim(cache.ped, 'weapon@w_sp_jerrycan', 'fire', 3.0, 3.9, 180, 49, 0, false, false, false)
                     -- Config.ShowRequiredItems(requiredItems, false)
-                    SetNuiFocus(true, true)
-                    SendNUIMessage({
-                        action = 'openThermite',
-                        amount = math.random(5, 10),
-                    })
+                    exports['ps-ui']:Thermite(function(success)
+                        if success then
+                            exports.qbx_core:Notify(Lang:t("success.fuses_are_blown"), "success")
+                    		ClearPedTasks(cache.ped)
+                            TriggerServerEvent("qb-bankrobbery:server:SetStationStatus", currentStation, true)
+                        else
+                            exports.qbx_core:Notify("You failed!", "error")
+                    		ClearPedTasks(cache.ped)
+                        end
+                    end, math.random(7, 15), math.random(4, 7), 3)
                     currentStation = closestStation
                 else
                     exports.qbx_core:Notify(Lang:t('error.fuses_already_blown'), 'error')
@@ -69,11 +74,19 @@ RegisterNetEvent('thermite:UseThermite', function()
             lib.requestAnimDict('weapon@w_sp_jerrycan')
             TaskPlayAnim(cache.ped, 'weapon@w_sp_jerrycan', 'fire', 3.0, 3.9, -1, 49, 0, false, false, false)
             -- Config.ShowRequiredItems(requiredItems, false)
-            SetNuiFocus(true, true)
-            SendNUIMessage({
-                action = 'openThermite',
-                amount = math.random(5, 10),
-            })
+            exports['ps-ui']:Thermite(function(success)
+                if success then
+                    exports.qbx_core:Notify(Lang:t("success.door_has_opened"), "success")
+                    print(currentGate)   
+                    print(currentThermiteGate)        
+                    ClearPedTasks(cache.ped)
+					TriggerServerEvent("qbx_bankrobbery:server:OpenGate", currentGate, false)
+                    currentGate = 0
+                else
+                    exports.qbx_core:Notify("You failed!", "error")
+                    ClearPedTasks(cache.ped)
+                end
+            end, 30, 5, 3)
         else
             exports.qbx_core:Notify(Lang:t('error.minium_police_required', {police = config.minThermitePolice}), 'error')
         end
