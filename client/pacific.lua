@@ -43,6 +43,7 @@ RegisterNetEvent('qb-bankrobbery:UseBankcardB', function()
         }
     }) then
         TriggerServerEvent('qb-bankrobbery:server:removeBankCard', '02')
+		TriggerServerEvent("qbx_bankrobbery:server:OpenGate", 6, false)
         if copsCalled or not pacificConfig.alarm then return end
         TriggerServerEvent('qb-bankrobbery:server:callCops', 'pacific', 0, pacificConfig.coords)
         copsCalled = true
@@ -111,21 +112,33 @@ CreateThread(function()
         coords = pacificConfig.coords[1],
         size = vec3(1, 1, 2),
         rotation = pacificConfig.heading.closed,
-        debug = false,
+            debug = false,
+                    onEnter = function()
+                    	inBankCardBZone = true
+                    end,
+                	onExit = function()
+                    	inBankCardBZone = false
+                    end,
     })
     lib.zones.box({
         name = 'pacific_coords_electronickit',
         coords = pacificConfig.coords[2],
         size = vec3(1, 1, 2),
         rotation = pacificConfig.heading.closed,
-        debug = false,
+            debug = false,
+                    onEnter = function()
+                    	inElectronickitZone = true
+                    end,
+                	onExit = function()
+                    	inElectronickitZone = false
+                    end,
     })
     lib.zones.box({
         name = 'pacific_coords_thermite_1',
         coords = pacificConfig.thermite[1].coords,
         size = vec3(1, 1, 2),
         rotation = pacificConfig.heading.closed,
-        debug = false,
+        debug = true,
         onEnter = function()
             if not pacificConfig.thermite[1].isOpened then
                 currentThermiteGate = pacificConfig.thermite[1].doorId
@@ -148,7 +161,7 @@ CreateThread(function()
         coords = pacificConfig.thermite[2].coords,
         size = vec3(1, 1, 2),
         rotation = pacificConfig.heading.closed,
-        debug = false,
+        debug = true,
         onEnter = function()
             if not pacificConfig.thermite[2].isOpened then
                 currentThermiteGate = pacificConfig.thermite[2].doorId
