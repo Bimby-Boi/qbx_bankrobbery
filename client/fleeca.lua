@@ -19,12 +19,9 @@ end
 
 RegisterNetEvent('electronickit:UseElectronickit', function()
     DropFingerprint()
-
     if closestBank == 0 or not inElectronickitZone then return end
-
     local isBusy = lib.callback.await('qb-bankrobbery:server:isRobberyActive', false)
     if isBusy then return exports.qbx_core:Notify(Lang:t('error.security_lock_active'), 'error', 5500) end
-
     if CurrentCops < config.minFleecaPolice then return exports.qbx_core:Notify(Lang:t('error.minimum_police_required', {police = config.minFleecaPolice}), 'error') end
     if sharedConfig.smallBanks[closestBank].isOpened then return exports.qbx_core:Notify(Lang:t('error.bank_already_open'), 'error') end
 
@@ -131,7 +128,13 @@ CreateThread(function()
             coords = sharedConfig.smallBanks[i].coords,
             size = vec3(1, 1, 2),
             rotation = sharedConfig.smallBanks[i].coords.closed,
-            debug = false
+            debug = false,
+                    onEnter = function()
+                    	inElectronickitZone = true
+                    end,
+                	onExit = function()
+                    	inElectronickitZone = false
+                    end,
         })
         for k in pairs(sharedConfig.smallBanks[i].lockers) do
             if config.useTarget then
