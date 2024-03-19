@@ -51,7 +51,13 @@ CreateThread(function()
         coords = paletoConfig.coords,
         size = vec3(1, 1, 2),
         rotation = paletoConfig.heading.closed,
-        debug = false,
+            debug = false,
+                    onEnter = function()
+                    	inBankCardAZone = true
+                    end,
+                	onExit = function()
+                    	inBankCardAZone = false
+                    end,
     })
     lib.zones.box({
         name = 'paleto_coords_thermite_1',
