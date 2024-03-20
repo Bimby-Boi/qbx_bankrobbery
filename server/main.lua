@@ -408,6 +408,10 @@ RegisterNetEvent('thermite:StartServerFire', function(coords, maxChildren, isGas
     end
 end)
 
+RegisterNetEvent("qbx_bankrobbery:server:OpenGate", function(currentGate, state)
+exports.ox_doorlock:setDoorState(currentGate, state)
+end)
+
 RegisterNetEvent('thermite:StopFires', function()
     TriggerClientEvent('thermite:StopFires', -1)
 end)
